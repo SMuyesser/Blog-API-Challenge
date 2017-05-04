@@ -12,13 +12,13 @@ BlogPosts.create(
 BlogPosts.create(
 	"Real Madrid could win", "If they continue playing this way, Real Madrid could win another UCL trophy.", "Sinan Muyesser");
 
-router.delete('/:id', (req, res) => {
+router.delete('/', (req, res) => {
   BlogPosts.delete(req.params.id);
   console.log(`Deleted the blog post for \`${req.params.ID}\``);
   res.status(204).end();
 });
 
-router.put('/:id', jsonParser, (req, res) => {
+router.put('/', jsonParser, (req, res) => {
   const requiredFields = ['title', 'content', 'author', 'id'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -36,7 +36,7 @@ router.put('/:id', jsonParser, (req, res) => {
     return res.status(400).send(message);
   }
   console.log(`Updating blog post for \`${req.params.id}\``);
-  const updatedItem = Recipes.update({
+  const updatedItem = BlogPosts.update({
     id: req.params.id,
     title: req.body.title,
     content: req.body.content,
