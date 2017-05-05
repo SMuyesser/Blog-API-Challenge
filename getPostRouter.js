@@ -12,7 +12,7 @@ BlogPosts.create(
 BlogPosts.create(
 	"Manchester United's Path to Champions' League", "If Manchester can win this tournament, they will qualify for UCL next year.", "Sinan Muyesser");
 
-router.get('', (req, res) => {
+router.get('/', (req, res) => {
 	res.json(BlogPosts.get());
 });
 
@@ -21,7 +21,7 @@ router.post('/', jsonParser, (req, res) => {
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`
+      const message = `Missing ${field} in request body`
       console.error(message);
       return res.status(400).send(message);
     }

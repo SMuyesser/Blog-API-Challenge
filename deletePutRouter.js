@@ -14,7 +14,7 @@ BlogPosts.create(
 
 router.delete('/', (req, res) => {
   BlogPosts.delete(req.params.id);
-  console.log(`Deleted the blog post for \`${req.params.ID}\``);
+  console.log(`Deleted the blog post for ${req.params.id}`);
   res.status(204).end();
 });
 
@@ -23,7 +23,7 @@ router.put('/', jsonParser, (req, res) => {
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`
+      const message = `Missing ${field} in request body`
       console.error(message);
       return res.status(400).send(message);
     }
@@ -35,7 +35,7 @@ router.put('/', jsonParser, (req, res) => {
     console.error(message);
     return res.status(400).send(message);
   }
-  console.log(`Updating blog post for \`${req.params.id}\``);
+  console.log(`Updating blog post for ${req.params.id}`);
   const updatedItem = BlogPosts.update({
     id: req.params.id,
     title: req.body.title,
@@ -43,6 +43,6 @@ router.put('/', jsonParser, (req, res) => {
     author: req.body.author
   });
   res.status(204).json(updatedItem);
-})
+});
 
 module.exports = router;
