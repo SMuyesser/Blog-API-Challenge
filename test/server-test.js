@@ -44,7 +44,7 @@ describe('BlogPosts', function() {
         res.should.have.status(201);
         res.should.be.json;
         res.body.should.be.a('object');
-        res.body.should.include.keys('id', 'title', 'content', 'author');
+        res.body.should.include.keys('id', 'title', 'content', 'author', 'publishDate');
         res.body.id.should.not.be.null;
         res.body.should.deep.equal(Object.assign(newItem, {id: res.body.id}));
       });
@@ -54,7 +54,8 @@ describe('BlogPosts', function() {
     const updateData = {
       title: 'Griezmann to ManU?',
       content: 'There is a a good chance that the striker is on his way to the Red Devils',
-      author: 'Sinan Muyesser'
+      author: 'Sinan Muyesser',
+      publishDate: Date.now()
     };
 
     return chai.request(app)
