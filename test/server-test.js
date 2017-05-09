@@ -44,9 +44,9 @@ describe('BlogPosts', function() {
         res.should.have.status(201);
         res.should.be.json;
         res.body.should.be.a('object');
-        res.body.should.include.keys('id', 'title', 'content', 'author', 'publishDate');
+        res.body.should.include.keys('id', 'title', 'content', 'author');
         res.body.id.should.not.be.null;
-        res.body.should.deep.equal(Object.assign(newItem, {id: res.body.id}));
+        res.body.should.deep.equal(Object.assign(newItem, {id: res.body.id, publishDate: res.body.publishDate}));
       });
   });
 
@@ -54,14 +54,14 @@ describe('BlogPosts', function() {
     const updateData = {
       title: 'Griezmann to ManU?',
       content: 'There is a a good chance that the striker is on his way to the Red Devils',
-      author: 'Sinan Muyesser',
-      publishDate: Date.now()
+      author: 'Sinan Muyesser'
     };
 
     return chai.request(app)
       .get('/blog-posts')
       .then(function(res) {
         updateData.id = res.body[0].id;
+        updateData.publishDate = res.body[0].publishDate;
         return chai.request(app)
           .put(`/blog-posts/${updateData.id}`)
           .send(updateData);
